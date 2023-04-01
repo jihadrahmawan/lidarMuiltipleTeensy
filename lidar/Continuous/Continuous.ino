@@ -26,9 +26,13 @@ void setup()
   while (!Serial) {}
   Serial.begin(115200);
   Wire.begin();
+  Wire.setClock(400000); // use 400 kHz I2C
+  Wire2.begin();
+  Wire2.setClock(400000); // use 400 kHz I2C
+  
 
   //sensorbelakang.
- // Wire.setClock(400000); // use 400 kHz I2C
+ // 
 
   // Disable/reset all sensors by driving their XSHUT pins low.
   for (uint8_t i = 0; i < sensorCount; i++)
