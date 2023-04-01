@@ -13,7 +13,7 @@ well.
 #include "VL53L1X.h"
 
 const uint8_t sensorCount = 8;
-const uint8_t xshutPins[sensorCount] = { 26, 27, 28, 29, 30, 31, 32, 33};
+const uint8_t xshutPins[sensorCount] = { 26, 27, 28, 29, 30, 31, 32, 33}; //kiri tengah, arah depan, kanan belakang, kiri belakang, kiri depan, kanan depan, kanan tengah, gripper
 volatile uint16_t distances_mm[sensorCount];
 const int max_distance = 2000;  //mm
 volatile int counter = 0;
