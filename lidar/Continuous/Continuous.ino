@@ -26,9 +26,7 @@ void setup()
   while (!Serial) {}
   Serial.begin(115200);
   Wire.begin();
-  sensorbelakang.setBus(&Wire2); //sensor belakang pakai i2c 2
-  sensorbelakang.setTimeout(500);
-  sensorbelakang.startContinuous(50);
+
   //sensorbelakang.
  // Wire.setClock(400000); // use 400 kHz I2C
 
@@ -63,7 +61,18 @@ void setup()
 
     sensors[i].startContinuous(50);
   }
-
+  
+  sensorbelakang.setBus(&Wire2); //sensor belakang pakai i2c 2
+  sensorbelakang.setTimeout(500);
+  if (!sensorbelakang.init())
+    {
+      while (1){
+      Serial.print("Failed to detect and initialize sensor belakang");
+      Serial.println();
+        delay(500);
+      }
+    }
+  sensorbelakang.startContinuous(50);
   delay(5000);
 }
 
