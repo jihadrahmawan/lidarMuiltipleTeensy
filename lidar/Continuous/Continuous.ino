@@ -12,19 +12,24 @@ well.
 #include <Wire.h>
 #include "VL53L1X.h"
 
-const uint8_t sensorCount = 6;
+const uint8_t sensorCount = 8;
 const uint8_t xshutPins[sensorCount] = { 26, 27, 28, 29, 30, 31, 32, 33};
 volatile uint16_t distances_mm[sensorCount];
 const int max_distance = 2000;  //mm
 volatile int counter = 0;
 
 VL53L1X sensors[sensorCount];
+VL53L1X sensorbelakang;
 
 void setup()
 {
   while (!Serial) {}
   Serial.begin(115200);
   Wire.begin();
+  sensorbelakang.setBus(&Wire2); //sensor belakang pakai i2c 2
+  sensorbelakang.setTimeout(500);
+  sensorbelakang.startContinuous(50);
+  //sensorbelakang.
  // Wire.setClock(400000); // use 400 kHz I2C
 
   // Disable/reset all sensors by driving their XSHUT pins low.
@@ -70,5 +75,9 @@ void loop()
     if (sensors[i].timeoutOccurred()) { Serial.print(" TIMEOUT"); }
     Serial.print('\t');
   }
+  
   Serial.println();
+  Serial.print("lidar belakang = ");
+  Serial.println(sensorbelakang.read());
+
 }
